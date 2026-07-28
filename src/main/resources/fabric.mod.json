@@ -3,7 +3,7 @@
 	"id": "advancementconfetti",
 	"version": "${version}",
 	"name": "Advancement Confetti",
-	"description": "confetti and a screenshot every time you get an advancement. purple/challenge ones get more confetti and a different sound. browse your captures from the pause menu or /advancementconfetti gallery.",
+	"description": "screenshots and shows a confetti effect to celebrate your advancements! you can toggle confetti in modmenu if you have it or using /advancementconfetti toggle [normal/rare].",
 	"authors": [
 		"maarrccoos"
 	],
