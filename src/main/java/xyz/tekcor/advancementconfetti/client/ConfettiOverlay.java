@@ -25,8 +25,9 @@ public final class ConfettiOverlay implements HudElement {
 	private static final int NORMAL_PER_SIDE = 45;
 	private static final int RARE_PER_SIDE = 130;
 
-	private static final float GRAVITY = 0.16F;
-	private static final float DRAG = 0.985F;
+	private static final float GRAVITY = 0.48F;
+	private static final float HORIZONTAL_DRAG = 0.89F;
+	private static final float TERMINAL_FALL_SPEED = 6.5F;
 	private static final float OFF_SCREEN_MARGIN = 30.0F;
 
 	private final Random random = new Random();
@@ -85,7 +86,7 @@ public final class ConfettiOverlay implements HudElement {
 		int height = Minecraft.getInstance().getWindow().getGuiScaledHeight();
 
 		this.particles.removeIf(particle -> {
-			particle.tick(GRAVITY, DRAG);
+			particle.tick(GRAVITY, HORIZONTAL_DRAG, TERMINAL_FALL_SPEED);
 			return particle.isDead() || particle.y > height + 40.0F;
 		});
 	}

@@ -32,7 +32,7 @@ final class ConfettiParticle {
 		this.halfHeight = halfHeight;
 	}
 
-	void tick(float gravity, float drag) {
+	void tick(float gravity, float horizontalDrag, float terminalFallSpeed) {
 		this.prevX = this.x;
 		this.prevY = this.y;
 		this.prevRotation = this.rotation;
@@ -40,8 +40,8 @@ final class ConfettiParticle {
 		this.x += this.velocityX;
 		this.y += this.velocityY;
 
-		this.velocityX *= drag;
-		this.velocityY = this.velocityY * drag + gravity;
+		this.velocityX *= horizontalDrag;
+		this.velocityY = Math.min(this.velocityY + gravity, terminalFallSpeed);
 
 		this.rotation += this.rotationSpeed;
 		this.life--;
