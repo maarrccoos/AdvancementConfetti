@@ -1,0 +1,12 @@
+{
+	"confetti": {
+		"sounds": [
+			"advancementconfetti:confetti"
+		]
+	},
+	"rare_confetti": {
+		"sounds": [
+			"advancementconfetti:rare_confetti"
+		]
+	}
+}

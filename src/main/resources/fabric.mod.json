@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "advancementconfetti",
+	"version": "${version}",
+	"name": "Advancement Confetti",
+	"description": "confetti and a screenshot every time you get an advancement. purple/challenge ones get more confetti and a different sound. browse your captures from the pause menu or /advancementconfetti gallery.",
+	"authors": [
+		"maarrccoos"
+	],
+	"contact": {
+		"homepage": "https://github.com/maarrccoos/AdvancementConfetti",
+		"issues": "https://github.com/maarrccoos/AdvancementConfetti/issues",
+		"sources": "https://github.com/maarrccoos/AdvancementConfetti"
+	},
+	"license": "CC-BY-NC-SA-4.0",
+	"icon": "assets/advancementconfetti/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"xyz.tekcor.advancementconfetti.client.AdvancementConfettiClient"
+		],
+		"modmenu": [
+			"xyz.tekcor.advancementconfetti.client.modmenu.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"advancementconfetti.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

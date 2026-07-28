@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "xyz.tekcor.advancementconfetti.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"AdvancementToastMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
