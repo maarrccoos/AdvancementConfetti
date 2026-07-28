@@ -22,11 +22,11 @@ public final class ConfettiOverlay implements HudElement {
 			0xFFFFD700, 0xFFFFF3B0, 0xFFC77DFF, 0xFF9D4EDD, 0xFFFFFFFF, 0xFFFF9E00, 0xFFE0AAFF
 	};
 
-	private static final int NORMAL_PER_SIDE = 45;
-	private static final int RARE_PER_SIDE = 130;
+	private static final int NORMAL_PER_SIDE = 60;
+	private static final int RARE_PER_SIDE = 150;
 
 	private static final float GRAVITY = 0.48F;
-	private static final float HORIZONTAL_DRAG = 0.89F;
+	private static final float HORIZONTAL_DRAG = 0.925F;
 	private static final float TERMINAL_FALL_SPEED = 6.5F;
 	private static final float OFF_SCREEN_MARGIN = 30.0F;
 
@@ -47,14 +47,14 @@ public final class ConfettiOverlay implements HudElement {
 		int count = rare ? RARE_PER_SIDE : NORMAL_PER_SIDE;
 		int[] palette = rare ? RARE_COLORS : NORMAL_COLORS;
 
-		float minSpeed = rare ? 9.0F : 7.5F;
-		float speedRange = rare ? 12.0F : 9.0F;
+		float minSpeed = rare ? 17.0F : 14.0F;
+		float speedRange = rare ? 19.0F : 15.0F;
 
 		int height = Minecraft.getInstance().getWindow().getGuiScaledHeight();
-		float originY = height * 0.34F;
+		float originY = height * 0.38F;
 
 		for (int i = 0; i < count; i++) {
-			double angle = Math.toRadians(6.0D + this.random.nextDouble() * 40.0D);
+			double angle = Math.toRadians(4.0D + this.random.nextDouble() * 46.0D);
 			float speed = minSpeed + this.random.nextFloat() * speedRange;
 
 			float velocityX = (float) (Math.cos(angle) * speed) * (toRight ? 1.0F : -1.0F);
