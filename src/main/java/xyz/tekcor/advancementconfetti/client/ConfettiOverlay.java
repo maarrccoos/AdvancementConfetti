@@ -28,7 +28,7 @@ public final class ConfettiOverlay implements HudElement {
 	private static final float GRAVITY = 0.48F;
 	private static final float HORIZONTAL_DRAG = 0.925F;
 	private static final float TERMINAL_FALL_SPEED = 6.5F;
-	private static final float OFF_SCREEN_MARGIN = 30.0F;
+	private static final float OFF_SCREEN_MARGIN = 14.0F;
 
 	private final Random random = new Random();
 	private final List<ConfettiParticle> particles = new ArrayList<>();
@@ -47,8 +47,8 @@ public final class ConfettiOverlay implements HudElement {
 		int count = rare ? RARE_PER_SIDE : NORMAL_PER_SIDE;
 		int[] palette = rare ? RARE_COLORS : NORMAL_COLORS;
 
-		float minSpeed = rare ? 17.0F : 14.0F;
-		float speedRange = rare ? 19.0F : 15.0F;
+		float minSpeed = rare ? 5.0F : 4.0F;
+		float speedRange = rare ? 32.0F : 27.0F;
 
 		int height = Minecraft.getInstance().getWindow().getGuiScaledHeight();
 		float originY = height * 0.38F;
@@ -60,7 +60,7 @@ public final class ConfettiOverlay implements HudElement {
 			float velocityX = (float) (Math.cos(angle) * speed) * (toRight ? 1.0F : -1.0F);
 			float velocityY = (float) (-Math.sin(angle) * speed);
 
-			float trail = this.random.nextFloat() * 34.0F;
+			float trail = this.random.nextFloat() * 20.0F;
 			float x = originX - (toRight ? trail : -trail);
 			float y = originY + (this.random.nextFloat() - 0.5F) * 28.0F;
 
