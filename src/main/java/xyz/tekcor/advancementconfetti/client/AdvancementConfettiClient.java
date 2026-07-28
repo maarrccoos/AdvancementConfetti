@@ -15,8 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
@@ -27,8 +26,8 @@ public class AdvancementConfettiClient implements ClientModInitializer {
 	public static final String MOD_ID = "advancementconfetti";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static final SoundEvent CONFETTI_SOUND = registerSound("confetti");
-	public static final SoundEvent RARE_CONFETTI_SOUND = registerSound("rare_confetti");
+	public static final SoundEvent CONFETTI_SOUND = createSound("confetti");
+	public static final SoundEvent RARE_CONFETTI_SOUND = createSound("rare_confetti");
 
 	private static int screenshotDelayTicks = -1;
 	private static boolean pendingRare;
@@ -107,9 +106,8 @@ public class AdvancementConfettiClient implements ClientModInitializer {
 
 		Minecraft client = Minecraft.getInstance();
 
-		if (client.player != null) {
-			client.player.playSound(rare ? RARE_CONFETTI_SOUND : CONFETTI_SOUND, 1.0F, 1.0F);
-		}
+		client.getSoundManager().play(SimpleSoundInstance.forUI(
+				rare ? RARE_CONFETTI_SOUND : CONFETTI_SOUND, 1.0F, 1.0F));
 
 		pendingRare = rare;
 		pendingAdvancementId = advancementId;
@@ -137,8 +135,7 @@ public class AdvancementConfettiClient implements ClientModInitializer {
 		}
 	}
 
-	private static SoundEvent registerSound(String name) {
-		Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, name);
-		return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
+	private static SoundEvent createSound(String name) {
+		return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, name));
 	}
 }
