@@ -44,6 +44,11 @@ public class GalleryScreen extends Screen {
 	private static final int TEXT_DIM = 0xFFBBBBBB;
 	private static final int TEXT_SELECTED = 0xFF55FF55;
 
+	private static final int CHECKBOX_SIZE = 11;
+	private static final int CHECKBOX_INSET = 3;
+	private static final int CHECKBOX_BG = 0xB0202020;
+	private static final int CHECKBOX_FILL = 0xFF3FCB3F;
+
 	private final Screen parent;
 	private File[] files = new File[0];
 	private int page;
@@ -228,7 +233,7 @@ public class GalleryScreen extends Screen {
 
 		Component info = Component.literal(
 				"Page " + (this.page + 1) + "/" + (maxPage() + 1)
-						+ "   ·   click to select, double click to view");
+						+ "   ·   click to view, tick the box to select");
 		graphics.text(this.font, info, this.width / 2 - this.font.width(info) / 2, 28, TEXT_DIM);
 	}
 
@@ -298,6 +303,18 @@ public class GalleryScreen extends Screen {
 				graphics.outline(x - 1, y - 1, this.getWidth() + 2, this.getHeight() + 2, SELECTED_BORDER);
 			}
 
+			int boxX = x + CHECKBOX_INSET;
+			int boxY = y + CHECKBOX_INSET;
+
+			graphics.fill(boxX, boxY, boxX + CHECKBOX_SIZE, boxY + CHECKBOX_SIZE, CHECKBOX_BG);
+
+			if (selected) {
+				graphics.fill(boxX + 2, boxY + 2, boxX + CHECKBOX_SIZE - 2, boxY + CHECKBOX_SIZE - 2, CHECKBOX_FILL);
+			}
+
+			graphics.outline(boxX, boxY, CHECKBOX_SIZE, CHECKBOX_SIZE,
+					selected ? SELECTED_BORDER : 0xFFDDDDDD);
+
 			Minecraft client = Minecraft.getInstance();
 			String text = trim(client, this.label, this.getWidth());
 			int textX = x + this.getWidth() / 2 - client.font.width(text) / 2;
@@ -322,10 +339,18 @@ public class GalleryScreen extends Screen {
 
 		@Override
 		public void onClick(MouseButtonEvent event, boolean doubleClick) {
-			if (doubleClick) {
-				this.gallery.openFullView(this.file);
-			} else {
+			double localX = event.x() - this.getX();
+			double localY = event.y() - this.getY();
+
+			boolean onCheckbox = localX >= CHECKBOX_INSET
+					&& localX <= CHECKBOX_INSET + CHECKBOX_SIZE
+					&& localY >= CHECKBOX_INSET
+					&& localY <= CHECKBOX_INSET + CHECKBOX_SIZE;
+
+			if (onCheckbox) {
 				this.gallery.toggleSelected(this.file);
+			} else {
+				this.gallery.openFullView(this.file);
 			}
 		}
 
