@@ -21,7 +21,7 @@ public final class ScreenshotCapture {
 		return new File(galleryDir(), "screenshots");
 	}
 
-	public static void capture(boolean rare, String advancementId) {
+	public static void capture(boolean rare, String advancementTitle) {
 		Path dir = screenshotDir().toPath();
 
 		try {
@@ -33,14 +33,37 @@ public final class ScreenshotCapture {
 
 		Minecraft client = Minecraft.getInstance();
 		String fileName = System.currentTimeMillis() + "_" + (rare ? "rare" : "normal")
-				+ "_" + sanitize(advancementId) + ".png";
+				+ "_" + sanitize(advancementTitle) + ".png";
 
 		Screenshot.grab(galleryDir(), fileName, client.getMainRenderTarget(), 1, message ->
 				AdvancementConfettiClient.LOGGER.info("{}", message.getString()));
 	}
 
+	public static String titleOf(String fileName) {
+		String name = fileName;
+		int dot = name.lastIndexOf('.');
+
+		if (dot > 0) {
+			name = name.substring(0, dot);
+		}
+
+		String[] parts = name.split("_", 3);
+		return parts.length < 3 || parts[2].isBlank() ? name : parts[2];
+	}
+
+	public static boolean isRare(String fileName) {
+		String[] parts = fileName.split("_", 3);
+		return parts.length > 1 && parts[1].equals("rare");
+	}
+
 	private static String sanitize(String raw) {
-		String cleaned = raw.replaceAll("[\\\\/:*?\"<>|]", "_");
+		String cleaned = raw.replaceAll("[\\\\/:*?\"<>|_]", " ").trim();
+		cleaned = cleaned.replaceAll("\\s+", " ");
+
+		if (cleaned.length() > 80) {
+			cleaned = cleaned.substring(0, 80).trim();
+		}
+
 		return cleaned.isEmpty() ? "advancement" : cleaned;
 	}
 }

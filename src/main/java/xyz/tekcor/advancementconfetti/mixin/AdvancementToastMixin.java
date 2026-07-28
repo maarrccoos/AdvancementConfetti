@@ -20,6 +20,10 @@ public abstract class AdvancementToastMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void advancementconfetti$onShown(AdvancementHolder advancement, CallbackInfo ci) {
-		AdvancementConfettiClient.celebrate(this.isChallengeAdvancement(), advancement.id().toString());
+		String title = advancement.value().display()
+				.map(display -> display.getTitle().getString())
+				.orElseGet(() -> advancement.id().toString());
+
+		AdvancementConfettiClient.celebrate(this.isChallengeAdvancement(), title);
 	}
 }
