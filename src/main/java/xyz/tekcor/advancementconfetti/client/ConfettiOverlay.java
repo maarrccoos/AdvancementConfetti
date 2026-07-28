@@ -27,6 +27,7 @@ public final class ConfettiOverlay implements HudElement {
 
 	private static final float GRAVITY = 0.16F;
 	private static final float DRAG = 0.985F;
+	private static final float OFF_SCREEN_MARGIN = 30.0F;
 
 	private final Random random = new Random();
 	private final List<ConfettiParticle> particles = new ArrayList<>();
@@ -37,28 +38,30 @@ public final class ConfettiOverlay implements HudElement {
 	public void spawn(boolean rare) {
 		int width = Minecraft.getInstance().getWindow().getGuiScaledWidth();
 
-		emit(rare, 0.0F, true);
-		emit(rare, width, false);
+		emit(rare, -OFF_SCREEN_MARGIN, true);
+		emit(rare, width + OFF_SCREEN_MARGIN, false);
 	}
 
 	private void emit(boolean rare, float originX, boolean toRight) {
 		int count = rare ? RARE_PER_SIDE : NORMAL_PER_SIDE;
 		int[] palette = rare ? RARE_COLORS : NORMAL_COLORS;
 
-		float minSpeed = rare ? 7.0F : 5.5F;
-		float speedRange = rare ? 8.0F : 6.0F;
+		float minSpeed = rare ? 9.0F : 7.5F;
+		float speedRange = rare ? 12.0F : 9.0F;
 
 		int height = Minecraft.getInstance().getWindow().getGuiScaledHeight();
+		float originY = height * 0.34F;
 
 		for (int i = 0; i < count; i++) {
-			double angle = Math.toRadians(2.0D + this.random.nextDouble() * 26.0D);
+			double angle = Math.toRadians(6.0D + this.random.nextDouble() * 40.0D);
 			float speed = minSpeed + this.random.nextFloat() * speedRange;
 
 			float velocityX = (float) (Math.cos(angle) * speed) * (toRight ? 1.0F : -1.0F);
 			float velocityY = (float) (-Math.sin(angle) * speed);
 
-			float x = originX + (this.random.nextFloat() - 0.5F) * 16.0F;
-			float y = height * 0.22F + this.random.nextFloat() * 26.0F;
+			float trail = this.random.nextFloat() * 34.0F;
+			float x = originX - (toRight ? trail : -trail);
+			float y = originY + (this.random.nextFloat() - 0.5F) * 28.0F;
 
 			float half = rare ? 2.5F : 2.0F;
 			float halfWidth = half + this.random.nextFloat();
