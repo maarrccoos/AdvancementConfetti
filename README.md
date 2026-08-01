@@ -12,9 +12,9 @@ built for minecraft 26.1.2 on fabric.
 
 ## download
 
-grab the jar from [releases](https://github.com/maarrccoos/AdvancementConfetti/releases) and drop it in your `mods` folder. you need fabric loader and fabric api.
+get it from [curseforge](https://www.curseforge.com/minecraft/mc-mods/advancementconfetti), or grab the jar straight from [releases](https://github.com/maarrccoos/AdvancementConfetti/releases) and drop it in your `mods` folder. you need fabric loader and fabric api.
 
-coming to modrinth and curseforge soon.
+coming to modrinth soon.
 
 ## what it does
 
